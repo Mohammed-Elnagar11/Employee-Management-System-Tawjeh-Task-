@@ -42,5 +42,35 @@ namespace Employee_Management_System__Tawjeh_Task_.Services
             ActionHistory.Push($"Added department: '{name}' (ID: {newDept.Id})");
             Console.WriteLine($"Department '{name}' added with ID: {newDept.Id}");
         }
+        public void ProcessOnboarding() 
+        {
+            if(onboardingQueue.Count <= 0)
+            { Console.WriteLine("No employees in onboarding queue!");
+            return;
+            }
+
+            Employee emp = onboardingQueue.Dequeue();
+            ActiveEmployees.Add(emp);
+            ActionHistory.Push($"Processed '{emp.Name}' from onboarding (Dept: {emp.DepartmentId})");
+            Console.WriteLine($"'{emp.Name}' is now an active employee!");
+        }
+        public void AddEmployeeSkill (int Id , string Skill)
+        {
+            foreach (Employee emp in ActiveEmployees)
+            {
+                if (emp.Id == Id)
+                {
+                    if (!Skills.Contains(Skill))
+                    {
+                        Skills.Add(Skill);
+                        ActionHistory.Push($"Added skill '{Skill}' to company Skills");
+                        Console.WriteLine($"Skill '{Skill}' added to company Skills");
+                    }
+                    else { Console.WriteLine($"Skill '{Skill}' already exists in company!"); }
+                    return;
+                }
+            }
+            Console.WriteLine($" Employee with ID {Id} not found!");
+        }
     }
 }
