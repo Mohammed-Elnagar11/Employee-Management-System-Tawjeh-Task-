@@ -136,5 +136,85 @@ namespace Employee_Management_System__Tawjeh_Task_.Services
             }
             if (!found) Console.WriteLine("No active employees in this department.");
         }
+        public void CalculateAverageSalary()
+        {
+            if (ActiveEmployees.Count == 0)
+            {
+                Console.WriteLine("\nNo active employees to calculate average salary!");
+                return;
+            }
+
+            decimal total = 0;
+            foreach (Employee emp in ActiveEmployees)
+            {
+                total += emp.Salary;
+            }
+
+            decimal average = total / ActiveEmployees.Count;
+            Console.WriteLine("\n=== Average Salary ===");
+            Console.WriteLine($"Total Employees: {ActiveEmployees.Count}");
+            Console.WriteLine($"Total Salary: {total:C}");
+            Console.WriteLine($"Average Salary: {average:C}");
+            ActionHistory.Push("Calculated average salary");
+        }
+        public void DisplayDepartmentReport()
+        {
+            Console.WriteLine("\n=== Department Report ===");
+
+            if (Departments.Count == 0)
+            {
+                Console.WriteLine("No departments available.");
+                return;
+            }
+
+            foreach (var dept in Departments.Values)
+            {
+                int count = 0;
+                foreach (Employee emp in ActiveEmployees)
+                {
+                    if (emp.DepartmentId == dept.Id)
+                    {
+                        count++;
+                    }
+                }
+                Console.WriteLine($"Department: {dept.Name} (ID: {dept.Id}) - Employees: {count}");
+            }
+            ActionHistory.Push("Displayed department report");
+        }
+        public void DisplayAllSkills()
+        {
+            Console.WriteLine("\n=== Unique Skills in Company ===");
+
+            if (Skills.Count == 0)
+            {
+                Console.WriteLine("No skills added yet.");
+                return;
+            }
+
+            int counter = 1;
+            foreach (string skill in Skills)
+            {
+                Console.WriteLine($"{counter}. {skill}");
+                counter++;
+            }
+            Console.WriteLine($"Total unique skills: {Skills.Count}");
+        }
+        public void DisplayActionHistory()
+        {
+            Console.WriteLine("\n=== Action History (Latest First) ===");
+
+            if (ActionHistory.Count == 0)
+            {
+                Console.WriteLine("No actions recorded yet.");
+                return;
+            }
+
+            int counter = 1;
+            foreach (string action in ActionHistory)
+            {
+                Console.WriteLine($"{counter}. {action}");
+                counter++;
+            }
+        }
     }
 }
