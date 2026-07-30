@@ -16,7 +16,23 @@ namespace Employee_Management_System__Tawjeh_Task_.Services
 
         public Company()
         {
-            //Seed Data
+            AddDepartment("IT");
+            AddDepartment("HR");
+            AddDepartment("Finance");
+
+            AddEmployee("Ahmed Ali", 1, 12000);
+            AddEmployee("Sara Mohamed", 1, 11000);
+            AddEmployee("Mona Youssef", 2, 9500);
+            AddEmployee("Khaled Ibrahim", 3, 15000);
+
+            ProcessOnboarding();
+            ProcessOnboarding();
+            ProcessOnboarding();
+
+            AddEmployeeSkill(1, "C#");
+            AddEmployeeSkill(1, ".NET");
+            AddEmployeeSkill(2, "SQL");
+            AddEmployeeSkill(3, "C#");
         }
         public void AddEmployee(String name, int departmentId, decimal salary)
         {
@@ -214,6 +230,19 @@ namespace Employee_Management_System__Tawjeh_Task_.Services
             {
                 Console.WriteLine($"{counter}. {action}");
                 counter++;
+            }
+        }
+        public void DisplayAllDepartments()
+        {
+            Console.WriteLine("\n=== Departments ===");
+            if (Departments.Count == 0)
+            {
+                Console.WriteLine("No departments available.");
+                return;
+            }
+            foreach (var dept in Departments.Values)
+            {
+                Console.WriteLine($"ID: {dept.Id}, Name: {dept.Name}");
             }
         }
     }
